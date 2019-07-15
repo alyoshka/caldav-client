@@ -3,26 +3,26 @@ package values
 import (
 	"encoding/xml"
 	"errors"
-	"github.com/taviti/caldav-go/icalendar/values"
 	"time"
+
+	"github.com/alyoshka/caldav-go/icalendar/values"
 )
 
-// a representation of a date and time for iCalendar
+// DateTime is a representation of a date and time for iCalendar
 type DateTime struct {
 	name string
 	t    time.Time
 }
 
-// creates a new caldav datetime representation, must be in UTC
+// NewDateTime creates a new caldav datetime representation, must be in UTC
 func NewDateTime(name string, t time.Time) (*DateTime, error) {
 	if t.Location() != time.UTC {
 		return nil, errors.New("CalDAV datetime must be in UTC")
-	} else {
-		return &DateTime{name: name, t: t.Truncate(time.Second)}, nil
 	}
+	return &DateTime{name: name, t: t.Truncate(time.Second)}, nil
 }
 
-// encodes the datetime value for the iCalendar specification
+// MarshalXMLAttr encodes the datetime value for the iCalendar specification
 func (d *DateTime) MarshalXMLAttr(name xml.Name) (xml.Attr, error) {
 	layout := values.UTCDateTimeFormatString
 	value := d.t.Format(layout)

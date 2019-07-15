@@ -1,22 +1,23 @@
 package http
 
 import (
-	"github.com/taviti/caldav-go/utils"
 	"io"
 	"log"
 	"net/url"
 	spath "path"
 	"strings"
+
+	"github.com/alyoshka/caldav-go/utils"
 )
 
 var _ = log.Print
 
-// a server that accepts HTTP requests
+// Server that accepts HTTP requests
 type Server struct {
 	baseUrl *url.URL
 }
 
-// creates a reference to an http server
+// NewServer creates a reference to an http server
 func NewServer(baseUrlStr string) (*Server, error) {
 	var err error
 	var s = new(Server)
@@ -27,12 +28,12 @@ func NewServer(baseUrlStr string) (*Server, error) {
 	}
 }
 
-// converts a path name to an absolute URL
+// UserInfo converts a path name to an absolute URL
 func (s *Server) UserInfo() *url.Userinfo {
 	return s.baseUrl.User
 }
 
-// converts a path name to an absolute URL
+// AbsUrlStr converts a path name to an absolute URL
 func (s *Server) AbsUrlStr(path string) string {
 	uri := *s.baseUrl
 	uri.Path = spath.Join(uri.Path, path)
@@ -42,7 +43,7 @@ func (s *Server) AbsUrlStr(path string) string {
 	return uri.String()
 }
 
-// creates a new HTTP request object
+// NewRequest creates a new HTTP request object
 func (s *Server) NewRequest(method string, path string, body ...io.ReadCloser) (*Request, error) {
 	return NewRequest(method, s.AbsUrlStr(path), body...)
 }

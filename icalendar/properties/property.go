@@ -2,7 +2,7 @@ package properties
 
 import (
 	"fmt"
-	"github.com/taviti/caldav-go/utils"
+	"github.com/alyoshka/caldav-go/utils"
 	"log"
 	"reflect"
 	"strings"

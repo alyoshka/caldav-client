@@ -1,20 +1,21 @@
 package http
 
 import (
-	"github.com/taviti/caldav-go/utils"
 	"io"
 	"net/http"
+
+	"github.com/alyoshka/caldav-go/utils"
 )
 
-// an HTTP request object
+// Request is an HTTP request object
 type Request http.Request
 
-// downcasts the request to the native HTTP interface
+// Native downcasts the request to the native HTTP interface
 func (r *Request) Native() *http.Request {
 	return (*http.Request)(r)
 }
 
-// creates a new HTTP request object
+// NewRequest creates a new HTTP request object
 func NewRequest(method string, urlstr string, body ...io.ReadCloser) (*Request, error) {
 
 	var err error
@@ -35,5 +36,4 @@ func NewRequest(method string, urlstr string, body ...io.ReadCloser) (*Request, 
 	}
 
 	return (*Request)(r), nil
-
 }

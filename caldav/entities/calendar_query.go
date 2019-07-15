@@ -2,13 +2,14 @@ package entities
 
 import (
 	"encoding/xml"
-	"github.com/taviti/caldav-go/caldav/values"
-	"github.com/taviti/caldav-go/utils"
-	"github.com/taviti/caldav-go/webdav/entities"
 	"time"
+
+	"github.com/alyoshka/caldav-go/caldav/values"
+	"github.com/alyoshka/caldav-go/utils"
+	"github.com/alyoshka/caldav-go/webdav/entities"
 )
 
-// a CalDAV calendar query object
+// CalendarQuery is a CalDAV calendar query object
 type CalendarQuery struct {
 	XMLName xml.Name          `xml:"urn:ietf:params:xml:ns:caldav calendar-query"`
 	Prop    *Prop             `xml:",omitempty"`
@@ -16,7 +17,7 @@ type CalendarQuery struct {
 	Filter  *Filter           `xml:",omitempty"`
 }
 
-// creates a new CalDAV query for iCalendar events from a particular time range
+// NewEventRangeQuery creates a new CalDAV query for iCalendar events from a particular time range
 func NewEventRangeQuery(start, end time.Time) (*CalendarQuery, error) {
 
 	var err error

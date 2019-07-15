@@ -6,29 +6,29 @@ import (
 	"net/http"
 	"strings"
 
-	cent "github.com/taviti/caldav-go/caldav/entities"
-	"github.com/taviti/caldav-go/icalendar/components"
-	"github.com/taviti/caldav-go/utils"
-	"github.com/taviti/caldav-go/webdav"
-	"github.com/taviti/caldav-go/webdav/entities"
+	cent "github.com/alyoshka/caldav-go/caldav/entities"
+	"github.com/alyoshka/caldav-go/icalendar/components"
+	"github.com/alyoshka/caldav-go/utils"
+	"github.com/alyoshka/caldav-go/webdav"
+	"github.com/alyoshka/caldav-go/webdav/entities"
 )
 
 var _ = log.Print
 
-// a client for making WebDAV requests
+// Client is a client for making WebDAV requests
 type Client webdav.Client
 
-// downcasts the client to the WebDAV interface
+// WebDAV downcasts the client to the WebDAV interface
 func (c *Client) WebDAV() *webdav.Client {
 	return (*webdav.Client)(c)
 }
 
-// returns the embedded CalDAV server reference
+// Server returns the embedded CalDAV server reference
 func (c *Client) Server() *Server {
 	return (*Server)(c.WebDAV().Server())
 }
 
-// fetches a list of CalDAV features supported by the server
+// Features fetches a list of CalDAV features supported by the server
 // returns an error if the server does not support DAV
 func (c *Client) Features(path string) ([]string, error) {
 	var cfeatures []string
@@ -44,7 +44,7 @@ func (c *Client) Features(path string) ([]string, error) {
 	}
 }
 
-// fetches a list of CalDAV features and checks if a certain one is supported by the server
+// SupportsFeature fetches a list of CalDAV features and checks if a certain one is supported by the server
 // returns an error if the server does not support DAV
 func (c *Client) SupportsFeature(name string, path string) (bool, error) {
 	if features, err := c.Features(path); err != nil {
@@ -60,7 +60,7 @@ func (c *Client) SupportsFeature(name string, path string) (bool, error) {
 	}
 }
 
-// fetches a list of CalDAV features and checks if a certain one is supported by the server
+// ValidateServer fetches a list of CalDAV features and checks if a certain one is supported by the server
 // returns an error if the server does not support DAV
 func (c *Client) ValidateServer(path string) error {
 	if found, err := c.SupportsFeature("access", path); err != nil {
@@ -72,7 +72,7 @@ func (c *Client) ValidateServer(path string) error {
 	}
 }
 
-// creates a new calendar collection on a given path
+// MakeCalendar creates a new calendar collection on a given path
 func (c *Client) MakeCalendar(path string) error {
 	if req, err := c.Server().NewRequest("MKCALENDAR", path); err != nil {
 		return utils.NewError(c.MakeCalendar, "unable to create request", c, err)
@@ -88,7 +88,7 @@ func (c *Client) MakeCalendar(path string) error {
 	}
 }
 
-// creates or updates one or more events on the remote CalDAV server
+// PutEvents creates or updates one or more events on the remote CalDAV server
 func (c *Client) PutEvents(path string, events ...*components.Event) error {
 	if len(events) <= 0 {
 		return utils.NewError(c.PutEvents, "no calendar events provided", c, nil)
@@ -100,7 +100,7 @@ func (c *Client) PutEvents(path string, events ...*components.Event) error {
 	return nil
 }
 
-// creates or updates one or more calendars on the remote CalDAV server
+// PutCalendars creates or updates one or more calendars on the remote CalDAV server
 func (c *Client) PutCalendars(path string, calendars ...*components.Calendar) error {
 	if req, err := c.Server().NewRequest("PUT", path, calendars); err != nil {
 		return utils.NewError(c.PutCalendars, "unable to encode request", c, err)
@@ -115,7 +115,7 @@ func (c *Client) PutCalendars(path string, calendars ...*components.Calendar) er
 	return nil
 }
 
-// attempts to fetch an event on the remote CalDAV server
+// GetEvents attempts to fetch an event on the remote CalDAV server
 func (c *Client) GetEvents(path string) ([]*components.Event, error) {
 	cal := new(components.Calendar)
 	if req, err := c.Server().NewRequest("GET", path); err != nil {
@@ -134,7 +134,7 @@ func (c *Client) GetEvents(path string) ([]*components.Event, error) {
 	}
 }
 
-// attempts to fetch an event on the remote CalDAV server
+// QueryEvents attempts to fetch an event on the remote CalDAV server
 func (c *Client) QueryEvents(path string, query *cent.CalendarQuery) (events []*components.Event, oerr error) {
 	ms := new(cent.Multistatus)
 	if req, err := c.Server().WebDAV().NewRequest("REPORT", path, query); err != nil {
@@ -170,7 +170,7 @@ func (c *Client) QueryEvents(path string, query *cent.CalendarQuery) (events []*
 	return
 }
 
-// executes a CalDAV request
+// Do executes a CalDAV request
 func (c *Client) Do(req *Request) (*Response, error) {
 	if resp, err := c.WebDAV().Do((*webdav.Request)(req)); err != nil {
 		return nil, utils.NewError(c.Do, "unable to execute CalDAV request", c, err)
@@ -179,12 +179,12 @@ func (c *Client) Do(req *Request) (*Response, error) {
 	}
 }
 
-// creates a new client for communicating with an WebDAV server
+// NewClient creates a new client for communicating with an WebDAV server
 func NewClient(server *Server, native *http.Client) *Client {
 	return (*Client)(webdav.NewClient((*webdav.Server)(server), native))
 }
 
-// creates a new client for communicating with a WebDAV server
+// NewDefaultClient creates a new client for communicating with a WebDAV server
 // uses the default HTTP client from net/http
 func NewDefaultClient(server *Server) *Client {
 	return NewClient(server, http.DefaultClient)

@@ -1,11 +1,12 @@
 package http
 
 import (
-	"github.com/taviti/caldav-go/utils"
 	"net/http"
+
+	"github.com/alyoshka/caldav-go/utils"
 )
 
-// a client for making HTTP requests
+// Client for making HTTP requests
 type Client struct {
 	native         *http.Client
 	server         *Server
@@ -19,17 +20,17 @@ func (c *Client) SetHeader(key string, value string) {
 	c.requestHeaders[key] = value
 }
 
-// downcasts to the native HTTP interface
+// Native downcasts to the native HTTP interface
 func (c *Client) Native() *http.Client {
 	return c.native
 }
 
-// returns the embedded HTTP server reference
+// Server returns the embedded HTTP server reference
 func (c *Client) Server() *Server {
 	return c.server
 }
 
-// executes an HTTP request
+// Do executes an HTTP request
 func (c *Client) Do(req *Request) (*Response, error) {
 	for key, value := range c.requestHeaders {
 		req.Header.Add(key, value)
@@ -41,12 +42,12 @@ func (c *Client) Do(req *Request) (*Response, error) {
 	}
 }
 
-// creates a new client for communicating with an HTTP server
+// NewClient creates a new client for communicating with an HTTP server
 func NewClient(server *Server, native *http.Client) *Client {
 	return &Client{server: server, native: native}
 }
 
-// creates a new client for communicating with a server
+// NewDefaultClient creates a new client for communicating with a server
 // uses the default HTTP client from net/http
 func NewDefaultClient(server *Server) *Client {
 	return NewClient(server, http.DefaultClient)

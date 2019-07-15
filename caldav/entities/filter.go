@@ -2,17 +2,18 @@ package entities
 
 import (
 	"encoding/xml"
-	"github.com/taviti/caldav-go/caldav/values"
-	"github.com/taviti/caldav-go/icalendar/properties"
+
+	"github.com/alyoshka/caldav-go/caldav/values"
+	"github.com/alyoshka/caldav-go/icalendar/properties"
 )
 
-// a CalDAV query filter entity
+// Filter is a CalDAV query filter entity
 type Filter struct {
 	XMLName         xml.Name         `xml:"urn:ietf:params:xml:ns:caldav filter"`
 	ComponentFilter *ComponentFilter `xml:",omitempty"`
 }
 
-// used to filter down calendar components, such as VCALENDAR > VEVENT
+// ComponentFilter used to filter down calendar components, such as VCALENDAR > VEVENT
 type ComponentFilter struct {
 	XMLName         xml.Name             `xml:"urn:ietf:params:xml:ns:caldav comp-filter"`
 	Name            values.ComponentName `xml:"name,attr"`
@@ -22,14 +23,14 @@ type ComponentFilter struct {
 	ParameterFilter *ParameterFilter     `xml:",omitempty"`
 }
 
-// used to restrict component filters to a particular time range
+// TimeRange used to restrict component filters to a particular time range
 type TimeRange struct {
 	XMLName   xml.Name         `xml:"urn:ietf:params:xml:ns:caldav time-range"`
 	StartTime *values.DateTime `xml:"start,attr"`
 	EndTime   *values.DateTime `xml:"end,attr"`
 }
 
-// used to restrict component filters to a property value
+// PropertyFilter used to restrict component filters to a property value
 type PropertyFilter struct {
 	XMLName         xml.Name                `xml:"urn:ietf:params:xml:ns:caldav prop-filter"`
 	Name            properties.PropertyName `xml:"name,attr"`
@@ -37,14 +38,14 @@ type PropertyFilter struct {
 	ParameterFilter *ParameterFilter        `xml:",omitempty"`
 }
 
-// used to restrict component filters to a parameter value
+// ParameterFilter used to restrict component filters to a parameter value
 type ParameterFilter struct {
 	XMLName   xml.Name                 `xml:"urn:ietf:params:xml:ns:caldav param-filter"`
 	Name      properties.ParameterName `xml:"name,attr"`
 	TextMatch *TextMatch               `xml:",omitempty"`
 }
 
-// used to match properties by text value
+// TextMatch used to match properties by text value
 type TextMatch struct {
 	XMLName         xml.Name             `xml:"urn:ietf:params:xml:ns:caldav text-match"`
 	Collation       values.TextCollation `xml:"collation,attr,omitempty"`
@@ -52,7 +53,7 @@ type TextMatch struct {
 	Content         string               `xml:",innerxml"`
 }
 
-// creates a new CalDAV property value matcher
+// NewPropertyMatcher creates a new CalDAV property value matcher
 func NewPropertyMatcher(name properties.PropertyName, content string) *PropertyFilter {
 	pf := new(PropertyFilter)
 	pf.Name = name

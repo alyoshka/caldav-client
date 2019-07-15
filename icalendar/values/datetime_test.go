@@ -2,7 +2,7 @@ package values
 
 import (
 	"fmt"
-	"github.com/taviti/caldav-go/icalendar"
+	"github.com/alyoshka/caldav-go/icalendar"
 	. "gopkg.in/check.v1"
 	"testing"
 	"time"

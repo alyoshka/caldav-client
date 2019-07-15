@@ -2,17 +2,18 @@ package caldav
 
 import (
 	"fmt"
-	calentities "github.com/taviti/caldav-go/caldav/entities"
-	"github.com/taviti/caldav-go/icalendar/components"
-	"github.com/taviti/caldav-go/icalendar/properties"
-	"github.com/taviti/caldav-go/icalendar/values"
-	"github.com/taviti/caldav-go/webdav"
-	webentities "github.com/taviti/caldav-go/webdav/entities"
-	. "gopkg.in/check.v1"
 	"net/url"
 	"os"
 	"testing"
 	"time"
+
+	calentities "github.com/alyoshka/caldav-go/caldav/entities"
+	"github.com/alyoshka/caldav-go/icalendar/components"
+	"github.com/alyoshka/caldav-go/icalendar/properties"
+	"github.com/alyoshka/caldav-go/icalendar/values"
+	"github.com/alyoshka/caldav-go/webdav"
+	webentities "github.com/alyoshka/caldav-go/webdav/entities"
+	. "gopkg.in/check.v1"
 )
 
 type ClientSuite struct {

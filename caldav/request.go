@@ -2,27 +2,28 @@ package caldav
 
 import (
 	"bytes"
-	"github.com/taviti/caldav-go/http"
-	"github.com/taviti/caldav-go/icalendar"
-	"github.com/taviti/caldav-go/utils"
-	"github.com/taviti/caldav-go/webdav"
 	"io"
 	"io/ioutil"
 	"log"
 	"strings"
+
+	"github.com/alyoshka/caldav-go/http"
+	"github.com/alyoshka/caldav-go/icalendar"
+	"github.com/alyoshka/caldav-go/utils"
+	"github.com/alyoshka/caldav-go/webdav"
 )
 
 var _ = log.Print
 
-// an CalDAV request object
+// Request is an CalDAV request object
 type Request webdav.Request
 
-// downcasts the request to the WebDAV interface
+// WebDAV downcasts the request to the WebDAV interface
 func (r *Request) WebDAV() *webdav.Request {
 	return (*webdav.Request)(r)
 }
 
-// creates a new CalDAV request object
+// NewRequest creates a new CalDAV request object
 func NewRequest(method string, urlstr string, icaldata ...interface{}) (*Request, error) {
 	if buffer, err := icalToReadCloser(icaldata...); err != nil {
 		return nil, utils.NewError(NewRequest, "unable to encode icalendar data", icaldata, err)
