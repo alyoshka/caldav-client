@@ -2,11 +2,12 @@ package values
 
 import (
 	"fmt"
-	"github.com/alyoshka/caldav-go/icalendar"
-	. "gopkg.in/check.v1"
 	"log"
 	"testing"
 	"time"
+
+	"github.com/alyoshka/caldav-go/icalendar"
+	. "gopkg.in/check.v1"
 )
 
 var _ = log.Print

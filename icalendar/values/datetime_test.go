@@ -2,10 +2,11 @@ package values
 
 import (
 	"fmt"
-	"github.com/alyoshka/caldav-go/icalendar"
-	. "gopkg.in/check.v1"
 	"testing"
 	"time"
+
+	"github.com/alyoshka/caldav-go/icalendar"
+	. "gopkg.in/check.v1"
 )
 
 type DateTimeSuite struct{}

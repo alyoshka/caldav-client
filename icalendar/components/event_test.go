@@ -2,12 +2,13 @@ package components
 
 import (
 	"fmt"
-	"github.com/alyoshka/caldav-go/icalendar"
-	"github.com/alyoshka/caldav-go/icalendar/values"
-	. "gopkg.in/check.v1"
 	"net/url"
 	"testing"
 	"time"
+
+	"github.com/alyoshka/caldav-go/icalendar"
+	"github.com/alyoshka/caldav-go/icalendar/values"
+	. "gopkg.in/check.v1"
 )
 
 type EventSuite struct{}

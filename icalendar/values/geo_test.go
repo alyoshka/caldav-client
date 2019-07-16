@@ -2,9 +2,10 @@ package values
 
 import (
 	"fmt"
+	"testing"
+
 	"github.com/alyoshka/caldav-go/icalendar"
 	. "gopkg.in/check.v1"
-	"testing"
 )
 
 type GeoSuite struct{}

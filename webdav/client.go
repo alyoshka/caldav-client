@@ -2,10 +2,11 @@ package webdav
 
 import (
 	"fmt"
+	nhttp "net/http"
+
 	"github.com/alyoshka/caldav-go/http"
 	"github.com/alyoshka/caldav-go/utils"
 	"github.com/alyoshka/caldav-go/webdav/entities"
-	nhttp "net/http"
 )
 
 const (

@@ -3,12 +3,13 @@ package webdav
 import (
 	"bytes"
 	"encoding/xml"
-	"github.com/alyoshka/caldav-go/http"
-	"github.com/alyoshka/caldav-go/utils"
 	"io"
 	"io/ioutil"
 	"log"
 	"strings"
+
+	"github.com/alyoshka/caldav-go/http"
+	"github.com/alyoshka/caldav-go/utils"
 )
 
 var _ = log.Print

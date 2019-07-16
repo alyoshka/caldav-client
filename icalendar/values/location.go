@@ -1,10 +1,11 @@
 package values
 
 import (
-	"github.com/alyoshka/caldav-go/icalendar/properties"
-	"github.com/alyoshka/caldav-go/utils"
 	"log"
 	"net/url"
+
+	"github.com/alyoshka/caldav-go/icalendar/properties"
+	"github.com/alyoshka/caldav-go/utils"
 )
 
 var _ = log.Print

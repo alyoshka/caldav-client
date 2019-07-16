@@ -1,9 +1,10 @@
 package values
 
 import (
+	"net/url"
+
 	"github.com/alyoshka/caldav-go/icalendar/properties"
 	"github.com/alyoshka/caldav-go/utils"
-	"net/url"
 )
 
 // a representation of duration for iCalendar

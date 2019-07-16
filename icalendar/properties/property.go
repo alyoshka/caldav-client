@@ -2,10 +2,11 @@ package properties
 
 import (
 	"fmt"
-	"github.com/alyoshka/caldav-go/utils"
 	"log"
 	"reflect"
 	"strings"
+
+	"github.com/alyoshka/caldav-go/utils"
 )
 
 var _ = log.Print

@@ -2,9 +2,10 @@ package components
 
 import (
 	"fmt"
+	"time"
+
 	"github.com/alyoshka/caldav-go/icalendar/values"
 	"github.com/alyoshka/caldav-go/utils"
-	"time"
 )
 
 type Calendar struct {

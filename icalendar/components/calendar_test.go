@@ -1,9 +1,10 @@
 package components
 
 import (
+	"testing"
+
 	"github.com/alyoshka/caldav-go/icalendar"
 	. "gopkg.in/check.v1"
-	"testing"
 )
 
 type CalendarSuite struct{ calendar Calendar }
